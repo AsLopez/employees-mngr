@@ -1,5 +1,6 @@
 package com.restapi.Employees;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class EmployeesApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void testMain() {
+		String test = "main test";
+		EmployeesApplication.main(new String[]{"args"});
+		Assertions.assertNotNull(test);
 	}
 
 }
