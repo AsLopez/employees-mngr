@@ -12,7 +12,7 @@
 #### - Install dependencies
 
 ```sh
-mvn clean install -s settings.xml -Dmaven.test.skip=true
+mvn clean install -Dmaven.test.skip=true
 ```
 
 ## Development
@@ -26,5 +26,14 @@ mvn spring-boot:run
 ### Test
 
 ```sh
-mvn verify -s settings.xml
+mvn verify
 ```
+
+---
+
+## Resources
+| Method | Path                   | Description        |
+|--------|------------------------|--------------------|
+| GET    | /health                | Get app status     |
+| POST   | /company/employee      | Get employee list  |
+| GET    | /company/employee/{id} | Get employee by id |
