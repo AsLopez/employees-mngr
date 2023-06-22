@@ -38,6 +38,14 @@ class EmployeesControllerTest {
     }
 
     @Test
+    void testGetEmployees_FailResponse() throws EmployeeException {
+        when(employeeService.getEmployees()).thenThrow(new EmployeeException("expected error"));
+
+        ResponseEntity<List<EmployeeDto>> result = employeesController.getEmployees();
+        Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.getStatusCode());
+    }
+
+    @Test
     void testGetEmployeeById() throws EmployeeException {
         when(employeeService.getEmployeeById(anyInt())).thenReturn(new EmployeeDto());
 
@@ -45,5 +53,14 @@ class EmployeesControllerTest {
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertNotNull(result.getBody());
     }
+
+    @Test
+    void testGetEmployeeById_FailResponse() throws EmployeeException {
+        when(employeeService.getEmployeeById(anyInt())).thenThrow(new EmployeeException("expected error"));
+
+        ResponseEntity<EmployeeDto> result = employeesController.getEmployeeById(2);
+        Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.getStatusCode());
+    }
+
 }
 

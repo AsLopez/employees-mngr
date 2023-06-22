@@ -21,40 +21,6 @@ public class EmployeeService implements IEmployeeService {
 
     private IApiService apiService;
 
-    /*@Override
-    public EmployeeDto getEmployeeById(int id) throws EmployeeException {
-        try {
-            UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(endpoint)
-                    .path(pathEmployee.replace("{id}", String.valueOf(id)));
-            URI uri = urlBuilder.build().encode().toUri();
-            ResponseEntity<EmployeeApiResponseDto> response = restTemplate.getForEntity(uri, EmployeeApiResponseDto.class);
-            return Objects.requireNonNull(response.getBody()).getData();
-        } catch (RestClientException e) {
-            LOGGER.error("[id:{}] No se encontro empleado para el id", id);
-            throw new EmployeeException(e.getMessage());
-        } catch (Exception e) {
-            LOGGER.error("[id:{}] No se pudo obtener respuesta", id, e);
-            throw new EmployeeException(e.getMessage(), String.valueOf(id), e);
-        }
-    }*/
-
-    /*@Override
-    public List<EmployeeDto> getEmployees() throws EmployeeException {
-        try {
-            UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(endpoint)
-                    .path(pathFullEmployees);
-            URI uri = urlBuilder.build().encode().toUri();
-            ResponseEntity<EmployeeListApiResponseDto> response = restTemplate.getForEntity(uri, EmployeeListApiResponseDto.class);
-            return Objects.requireNonNull(response.getBody()).getData();
-        } catch (RestClientException e) {
-            LOGGER.error("No se encontraron empleados", e);
-            throw new EmployeeException(e.getMessage());
-        } catch (Exception e) {
-            LOGGER.error("No se pudo obtener respuesta", e);
-            throw new EmployeeException(e.getMessage(), "NA", e);
-        }
-    }*/
-
     @Override
     public List<EmployeeDto> getEmployees() throws EmployeeException {
         List<EmployeeDto> employeeDtoList = apiService.callEmployeeApi(pathFullEmployees, EmployeeListApiResponseDto.class).getData();

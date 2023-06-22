@@ -37,41 +37,35 @@ public class RestTemplateLoggingInterceptor implements ClientHttpRequestIntercep
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getBody(), StandardCharsets.UTF_8));
-            Throwable var4 = null;
+            Throwable throwable4 = null;
 
             try {
-                for(String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+                for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
                     responseBodyBuilder.append(line).append(System.lineSeparator());
                 }
 
                 String logginResponse = responseBodyBuilder.toString();
                 LOGGER.info("<RestTemplate response> status: ({}: {}), body: {}", new Object[]{response.getStatusCode(), response.getStatusCode().getReasonPhrase(), logginResponse});
-            } catch (Throwable var17) {
-                var4 = var17;
-                throw var17;
+            } catch (Throwable throwable17) {
+                throwable4 = throwable17;
+                throw throwable17;
             } finally {
-                if (bufferedReader != null) {
-                    if (var4 != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (Throwable var16) {
-                            var4.addSuppressed(var16);
-                        }
-                    } else {
+                if (throwable4 != null) {
+                    try {
                         bufferedReader.close();
+                    } catch (Throwable throwable16) {
+                        throwable4.addSuppressed(throwable16);
                     }
+                } else {
+                    bufferedReader.close();
                 }
-
             }
-        } catch (IOException var19) {
-            IOException e = var19;
-
+        } catch (IOException throwable19) {
             try {
-                LOGGER.error("<RestTemplate error> Service Response: ({}: {}). Couldn't read response body. Error: {}", new Object[]{response.getStatusCode(), response.getStatusCode().getReasonPhrase(), e.getLocalizedMessage()});
-            } catch (IOException var15) {
-                LOGGER.error("<RestTemplate error> Couldn't read response body. Error: {}", var19.getLocalizedMessage());
+                LOGGER.error("<RestTemplate error> Service Response: ({}: {}). Couldn't read response body. Error: {}", new Object[]{response.getStatusCode(), response.getStatusCode().getReasonPhrase(), throwable19.getLocalizedMessage()});
+            } catch (IOException throwable15) {
+                LOGGER.error("<RestTemplate error> Couldn't read response body. Error: {}", throwable19.getLocalizedMessage());
             }
         }
-
     }
 }
